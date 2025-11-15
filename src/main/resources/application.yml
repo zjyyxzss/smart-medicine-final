@@ -1,0 +1,76 @@
+spring:
+  rabbitmq:
+    host: 192.168.100.129
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8080  # 控制台的地址
+        port: 8719
+  elasticsearch:
+    uris: http://192.168.100.129:9200
+  # 数据源配置
+  datasource:
+    username: root
+    password: zjy
+    url: jdbc:mysql://127.0.0.1:3306/smart-medicine?serverTimezone=Hongkong&useAffectedRows=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # 邮件配置
+  mail:
+    username: 2892163172@qq.com
+    password: zudhuxipdgcmdgeb
+    host: smtp.qq.com
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+    valid: 5
+    title: "寻药就医系统 - 用户认证"
+    template: "您的动态验证码为：<strong style='color: red'>%s</strong>，%d分钟内有效，若非本人操作，请勿泄露。"
+  data:
+    redis:
+      host: 192.168.100.129
+      port: 6379
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+      timeout: 3000ms
+  cache:
+    type: redis
+
+# 日志配置
+logging:
+  level:
+    world.world.xuewei.dao.mapper: debug
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 阿里云通义千问配置
+ai-key: sk-1fd59aed2b9c40acb067fe7b32f0a576
+# 阿里云对象存储配置
+oss:
+  bucket-name: xzs12321
+  end-point: oss-cn-beijing.aliyuncs.com
+  access-key: YOUR_QQ_AUTHORIZATION_CODE
+  access-secret: YOUR_QQ_AUTHORIZATION_CODE
+server:
+  port: 8081
