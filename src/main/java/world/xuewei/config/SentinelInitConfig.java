@@ -3,6 +3,7 @@ package world.xuewei.config;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import jakarta.annotation.PostConstruct; // 导入
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@Slf4j
 public class SentinelInitConfig {
 
     @PostConstruct
@@ -27,6 +29,6 @@ public class SentinelInitConfig {
 
         // 3. 加载规则到 Sentinel 系统
         FlowRuleManager.loadRules(rules);
-        System.out.println(">>> Sentinel 规则已通过 Java 代码强制加载，QPS 阈值设置为 5。");
+        log.info(">>> Sentinel 规则已通过 Java 代码强制加载，QPS 阈值设置为 5。");
     }
 }

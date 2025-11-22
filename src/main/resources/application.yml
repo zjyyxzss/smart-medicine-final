@@ -59,6 +59,7 @@ spring:
 # 日志配置
 logging:
   level:
+    world.xuewei: INFO
     world.world.xuewei.dao.mapper: debug
 mybatis-plus:
   configuration:

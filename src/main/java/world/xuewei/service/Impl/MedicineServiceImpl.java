@@ -93,22 +93,33 @@ public class MedicineServiceImpl extends BaseService<Medicine> implements Medici
         return medicineDao.deleteById(id);
     }
 
+    /**
+     * 获取药品列表，支持按名称、关键字或功效搜索并分页
+     *
+     * @param nameValue 搜索关键词，用于匹配药品名称、关键字或功效
+     * @param page 页码，用于分页查询
+     * @return 包含药品列表和总页数的Map对象
+     */
     public Map<String, Object> getMedicineList(String nameValue, Integer page) {
 
         List<Medicine> medicineList;
         Map<String, Object> map = new HashMap<>(4);
+        // 根据是否有搜索关键词执行不同的查询逻辑
         if (Assert.notEmpty(nameValue)) {
+            // 如果有搜索关键词，则在药品名称、关键字或功效中进行模糊搜索
             medicineList = medicineDao.selectList(new QueryWrapper<Medicine>().
                     like("medicine_name", nameValue)
                     .or().like("keyword", nameValue)
                     .or().like("medicine_effect", nameValue)
                     .last("limit " + (page - 1) * 9 + "," + page * 9));
         } else {
+            // 如果没有搜索关键词，则查询所有药品
             medicineList = medicineDao.selectList(new QueryWrapper<Medicine>()
                     .last("limit " + (page - 1) * 9 + "," + page * 9));
         }
 
         map.put("medicineList", medicineList);
+        // 计算并存储总页数
         map.put("size", medicineList.size() < 9 ? 1 : medicineList.size() / 9 + 1);
         return map;
     }

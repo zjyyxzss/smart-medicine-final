@@ -22,8 +22,8 @@ public class BookingController {
      * @return 预约结果，包含成功或失败信息
      */
     @PostMapping("book")
-    public RespResult book(@RequestParam Long scheduleId) {
-        Long userId = 1L;
+    public RespResult book(@RequestParam Long scheduleId, @RequestParam Long userId) {
+        //Long userId = 1L;
         return bookingService.book(userId, scheduleId);
     }
 }
